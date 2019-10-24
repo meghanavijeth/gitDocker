@@ -8,28 +8,36 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
   extended: true
 }));
 app.set('port', process.env.PORT || 7878);
-
 var cmd=require('node-cmd');
 
-app.post('/gitPush', function (req, res) {
-console.log("Received the message inside gitPush->"+ JSON.stringify(req.body));
 
-    cmd.get('bash script.sh',
+// Change anything below this ONLY!
+
+app.post('/repo1', function (req, res) {
+    cmd.get('bash repo1.sh',
         function(err, data, stderr){
-            if (!err) {
-               console.log('Error in Running the Code->',data)
+            if (err) {
+                console.log('error', err)
             } else {
-               console.log('error', err)
+                console.log('Success in Running the Code->',data)
             }
-
         }
     );
-
-
 });
 
 
+app.post('/repo2', function (req, res) {
+    cmd.get('bash repo2.sh',
+        function(err, data, stderr){
+            if (err) {
+                console.log('error', err)
+            } else {
+                console.log('Success in Running the Code->',data)
+            }
+        }
+    );
+});
 
 
-
+// Change anything above this ONLY!
 app.listen(app.get('port'));
